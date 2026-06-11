@@ -1,0 +1,310 @@
+/* ===========================
+   Mujeres de Madera - Estilos
+   =========================== */
+
+:root {
+  --bark: #5c3d1e;
+  --bark-light: #8b5e3c;
+  --moss: #4a6741;
+  --moss-light: #7a9e73;
+  --cream: #f5efe6;
+  --sand: #e8d5b7;
+  --amber: #c8882a;
+  --stone: #9e8e7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--cream);
+  color: var(--bark);
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Hero section */
+.hero-bg {
+  background: linear-gradient(135deg, #3d2b1a 0%, #5c3d1e 40%, #4a6741 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(200,136,42,0.15) 0%, transparent 60%);
+}
+
+/* Wood ring decorative */
+.wood-ring {
+  border: 3px solid var(--amber);
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.15;
+}
+
+/* Gallery card */
+.gallery-card {
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(92,61,30,0.12);
+  transform: translateY(40px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-card:hover {
+  box-shadow: 0 12px 40px rgba(92,61,30,0.25);
+  transform: translateY(-6px) scale(1.01);
+}
+
+.gallery-card:hover .card-img {
+  transform: scale(1.07);
+}
+
+.card-img {
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* Category badge */
+.badge {
+  background: var(--moss);
+  color: #fff;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+/* Lightbox */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30,18,8,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+#lightbox.open {
+  display: flex;
+}
+
+#lightbox img {
+  max-width: 85vw;
+  max-height: 80vh;
+  border-radius: 2px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  animation: zoomIn 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* Divider leaf */
+.leaf-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.leaf-divider::before,
+.leaf-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--amber));
+}
+
+.leaf-divider::after {
+  background: linear-gradient(to left, transparent, var(--amber));
+}
+
+/* Nav */
+nav {
+  background: rgba(61,43,26,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(200,136,42,0.3);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to bottom, #3d2b1a, #2a1d0f);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity:0 }
+  to { opacity:1 }
+}
+
+@keyframes zoomIn {
+  from { transform:scale(0.85); opacity:0 }
+  to { transform:scale(1); opacity:1 }
+}
+
+@keyframes slideDown {
+  from { transform:translateY(-30px); opacity:0 }
+  to { transform:translateY(0); opacity:1 }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero-title {
+  animation: slideDown 1s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+
+.hero-subtitle {
+  animation: slideDown 1s cubic-bezier(0.22,1,0.36,1) 0.45s both;
+}
+
+.hero-cta {
+  animation: slideDown 1s cubic-bezier(0.22,1,0.36,1) 0.65s both;
+}
+
+.logo-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Site logo image */
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: 4px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  display: inline-block;
+}
+
+/* Section heading underline */
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--amber);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.section-title:hover::after {
+  width: 100%;
+}
+
+/* Stagger delays for cards */
+.gallery-card:nth-child(1) { transition-delay: 0.05s; }
+.gallery-card:nth-child(2) { transition-delay: 0.15s; }
+.gallery-card:nth-child(3) { transition-delay: 0.25s; }
+.gallery-card:nth-child(4) { transition-delay: 0.35s; }
+.gallery-card:nth-child(5) { transition-delay: 0.1s; }
+.gallery-card:nth-child(6) { transition-delay: 0.2s; }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bark-light);
+  border-radius: 4px;
+}
+
+/* About strip */
+.about-strip {
+  background: linear-gradient(135deg, var(--moss) 0%, #3a5430 100%);
+}
+
+/* Hover underline nav links */
+.nav-link {
+  position: relative;
+  color: var(--sand);
+  transition: color 0.3s;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--amber);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem !important;
+  }
+
+  .site-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gallery-card {
+    margin-bottom: 1rem;
+  }
+
+  #lightbox img {
+    max-width: 95vw;
+    max-height: 90vh;
+  }
+}
