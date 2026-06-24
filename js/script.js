@@ -2,7 +2,6 @@
    Mujeres de Madera - JavaScript
    =========================== */
 
-// Abrir lightbox con imagen
 function openLightbox(imagePath, caption = '') {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -14,21 +13,18 @@ function openLightbox(imagePath, caption = '') {
   document.body.style.overflow = 'hidden';
 }
 
-// Cerrar lightbox
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
   lightbox.classList.remove('open');
   document.body.style.overflow = 'auto';
 }
 
-// Cerrar lightbox con tecla Escape
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeLightbox();
   }
 });
 
-// Observador de intersección para animaciones al scrollear
 const observerOptions = {
   threshold: 0.2,
   rootMargin: '0px 0px -50px 0px'
@@ -43,14 +39,12 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observar todas las tarjetas de galería
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.gallery-card');
   cards.forEach((card) => {
     observer.observe(card);
   });
 
-  // Smooth scroll para enlaces internos
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
@@ -65,27 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Lazy loading de imágenes
-if ('IntersectionObserver' in window) {
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-        imageObserver.unobserve(img);
-      }
-    });
-  });
-
-  document.querySelectorAll('img[data-src]').forEach((img) => {
-    imageObserver.observe(img);
-  });
-}
-
-// Navegar a través de lightbox con flechas
 document.addEventListener('keydown', (e) => {
   const lightbox = document.getElementById('lightbox');
   if (!lightbox.classList.contains('open')) return;
@@ -97,7 +70,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Función auxiliar para navegar en galería
 function navigateGallery(direction) {
   const lightboxImg = document.getElementById('lightbox-img');
   const currentSrc = lightboxImg.src;
@@ -111,11 +83,44 @@ function navigateGallery(direction) {
     }
   });
 
+  if (currentIndex === -1) return;
+
   const nextIndex = (currentIndex + direction + cards.length) % cards.length;
   const nextCard = cards[nextIndex];
   const nextImg = nextCard.querySelector('img');
+  const captionEl = document.getElementById('lightbox-caption');
 
   if (nextImg) {
     lightboxImg.src = nextImg.src;
+    captionEl.textContent = nextImg.alt || '';
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const feedback = document.getElementById('form-feedback');
+    const name = form.querySelector('input[type="text"]');
+    const email = form.querySelector('input[type="email"]');
+    const message = form.querySelector('textarea');
+
+    if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+      feedback.className = 'form-feedback error';
+      feedback.textContent = 'Por favor completa todos los campos.';
+      return;
+    }
+
+    if (!email.value.includes('@')) {
+      feedback.className = 'form-feedback error';
+      feedback.textContent = 'Por favor ingresa un correo electrónico válido.';
+      return;
+    }
+
+    feedback.className = 'form-feedback success';
+    feedback.textContent = 'Gracias por tu mensaje. Te contactaremos pronto.';
+    form.reset();
+  });
+});

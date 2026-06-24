@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Lato', sans-serif;
   background-color: var(--cream);
@@ -238,6 +242,9 @@ footer {
 .gallery-card:nth-child(4) { transition-delay: 0.35s; }
 .gallery-card:nth-child(5) { transition-delay: 0.1s; }
 .gallery-card:nth-child(6) { transition-delay: 0.2s; }
+.gallery-card:nth-child(7) { transition-delay: 0.3s; }
+.gallery-card:nth-child(8) { transition-delay: 0.4s; }
+.gallery-card:nth-child(9) { transition-delay: 0.5s; }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
@@ -286,6 +293,28 @@ footer {
 
 .nav-link:hover::after {
   width: 100%;
+}
+
+/* Contact form feedback */
+.form-feedback {
+  display: none;
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-feedback.success {
+  display: block;
+  background: var(--moss-light);
+  color: #fff;
+}
+
+.form-feedback.error {
+  display: block;
+  background: #b33a3a;
+  color: #fff;
 }
 
 /* Responsive design */
