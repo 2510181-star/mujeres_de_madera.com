@@ -213,6 +213,15 @@ footer {
   transform: translateY(0);
 }
 
+.values-list li {
+  line-height: 1.45;
+  margin-bottom: 0.35rem;
+}
+
+.values-list li strong {
+  color: var(--amber);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .logo-float, .reveal, .gallery-card, .hero-title, .hero-cta { animation: none !important; transition: none !important; }
 }
