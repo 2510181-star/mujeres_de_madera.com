@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
   cards.forEach((card) => {
     observer.observe(card);
   });
+  // Observe reveal elements (mission/vision/valores etc.)
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach((el) => observer.observe(el));
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
